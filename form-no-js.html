@@ -24,12 +24,12 @@
             <h2>Contact Form</h2>
             <form-field>
                 <label for="name">Name (text)</label><br>
-                <input type="text" id="name" name="name" autocomplete="name" placeholder="John Pork" required><br>
+                <input type="text" id="name" name="name" minlength="1" maxlength="100" autocomplete="name" placeholder="John Pork" required><br>
                 <output id="name-hint" class="hint" for="name">Must be between 1 and 100 charcters.</output>
             </form-field>
             <form-field>
                 <label for="email">Email (email)</label><br>
-                <input type="email" id="email" name="email" minlength="1" maxlength="100" autocomplete="email" placeholder="johnpork@gmail.com" required><br>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="johnpork@gmail.com" required><br>
             </form-field>
             <form-field>
                 <label for="comments">Comments (textarea)</label><br>
