@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/form.css">
     <title>Personal Site</title>
 </head>
 <body>
@@ -19,25 +20,27 @@
         </nav>
     </header>
     <main>
-        <h1>Mateo Kalafatovich</h1>
-            <form action="https://httpbin.org/post" method="POST">
-                <form-field>
-                    <label for="name">Name</label><br>
-                    <input type="text" id="name" name="name" autocomplete="name"><br>
-                </form-field>
-                <form-field>
-                    <label for="email">Email</label><br>
-                    <input type="email" id="email" name="email" autocomplete="email" required><br>
-                </form-field>
-                <form-field>
-                    <label for="comments">Comments</label><br>
-                    <textarea id="comments" name="comments"></textarea><br>
-                </form-field>
-                <form-field>
-                    <input type="hidden" name="possible_bot" value="true">
-                </form-field>
-                <button type="submit">Submit</button>
-            </form>
+        <form action="https://httpbin.org/post" method="POST">
+            <h2>Contact Form</h2>
+            <form-field>
+                <label for="name">Name (text)</label><br>
+                <input type="text" id="name" name="name" autocomplete="name" placeholder="John Pork" required><br>
+                <output id="name-hint" class="hint" for="name">Must be between 1 and 100 charcters.</output>
+            </form-field>
+            <form-field>
+                <label for="email">Email (email)</label><br>
+                <input type="email" id="email" name="email" minlength="1" maxlength="100" autocomplete="email" placeholder="johnpork@gmail.com" required><br>
+            </form-field>
+            <form-field>
+                <label for="comments">Comments (textarea)</label><br>
+                <textarea id="comments" name="comments" minlength="10" maxlength="1000" required></textarea><br>
+                <output id="comments-hint" class="hint" for="comments">Must be between 10 and 1000 charcters.</output>
+            </form-field>
+            <form-field>
+                <input type="hidden" name="possible_bot" value="true">
+            </form-field>
+            <button type="submit">Submit</button>
+        </form>
     </main>
     <footer>
         <noscript>
