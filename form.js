@@ -11,7 +11,14 @@ let isSubmitting = false;
 
 /* Validation and feedback */
 
-// Custom messages for each type of error
+// Field names shown at the start of each message in the error area
+const fieldNames = {
+    name: "Name",
+    email: "Email",
+    comments: "Comments",
+};
+
+// Custom messages for each type of error: they explain how to fix it
 const messages = {
     name: {
         valueMissing: "Name is required. Please enter your name.",
@@ -37,15 +44,36 @@ function validate(field) {
     return field.validity.valid;
 }
 
+/* Error area */
+const errorList = document.getElementById("error-list");
+const errorTitle = document.getElementById("error-title");
+
+function errorItemFor(field) {
+    return document.getElementById(`${field.id}-error`);
+}
+
 function showError(field) {
-    const errorElement = document.getElementById(`${field.id}-error`);
+    let item = errorItemFor(field);
+
     if (field.validity.valid) {
         field.removeAttribute("aria-invalid");
-        errorElement.textContent = "";
+        item?.remove();
     } else {
         field.setAttribute("aria-invalid", "true");
-        errorElement.textContent = field.validationMessage;
+        const text = `${fieldNames[field.id]}: ${field.validationMessage}`;
+        if (!item) {
+            item = document.createElement("li");
+            item.id = `${field.id}-error`;
+            const next = fields
+                .slice(fields.indexOf(field) + 1)
+                .map(errorItemFor)
+                .find(Boolean) ?? null;
+            errorList.insertBefore(item, next);
+        }
+        if (item.textContent !== text) item.textContent = text;
     }
+
+    errorTitle.hidden = errorList.children.length === 0;
 }
 
 function checkField(field) {
@@ -67,6 +95,7 @@ form.addEventListener("input", (event) => {
 });
 
 form.addEventListener("focusout", (event) => {
+    if (event.relatedTarget?.type === "submit") return;
     if(editedFields.has(event.target)) {
         checkField(event.target);
     }
@@ -103,6 +132,7 @@ form.addEventListener("invalid", (event) => {
 
 // Character count for the comments field
 const comments = document.getElementById("comments");
+const infoArea = document.getElementById("info-area");
 const commentsInfo = document.getElementById("comments-info");
 const commentsCount = document.getElementById("comments-count");
 const commentsStatus = document.getElementById("comments-status");
@@ -134,5 +164,5 @@ function updateCharacterCount() {
 
 comments.addEventListener("input", updateCharacterCount);
 
-commentsInfo.hidden = false;
+infoArea.hidden = false;
 updateCharacterCount(); 

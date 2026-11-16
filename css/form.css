@@ -7,9 +7,14 @@
             --form-bg: var(--color-accent);
             --form-field-bg: #ffffff;
             --form-field-border: #000000;
-            --error: #ff6f01;
+            --error: #ff6f01; /* invalid-field border: 4.5:1 on the yellow form */
             --character-warning: rgb(154, 96, 29);
             --character-limit: rgb(164, 20, 20);
+            --error-area-bg: #fdecec;
+            --error-area-text: #da2626;
+            --info-area-bg: #fff6dc;
+            --info-area-text: var(--color-text);
+            --info-area-stripe: #8a5a00;
         }
 
 
@@ -20,6 +25,11 @@
             --error: #ff9a52;
             --character-warning: #ffc46b;
             --character-limit: #ff8a8a;
+            --error-area-bg: #3a1d24;
+            --error-area-text: #ffb4a8;
+            --info-area-bg: #2b2a1f;
+            --info-area-text: var(--color-text);
+            --info-area-stripe: #ffc46b;
         }
     
         h2 {
@@ -64,14 +74,45 @@
         display: none;
     }    
 
-    form-field:has(:user-invalid) :is(input, textarea) {
+    form-field :is(input, textarea)[aria-invalid="true"] {
         border-color: var(--error);
-        box-shadow: 0 0 0 1px var(--error);
     }
 
-    .error {
-        color: var(--error);
-        font-weight: 600;
+    /* Message areas below the fields */
+    .message-area {
+        padding: 0.75rem 1rem;
+        /* border-inline-start: 4px solid; */
+        border-radius: 0.375rem;
+
+        & .message-title {
+            font-weight: 700;
+        }
+
+        & ul {
+            padding-inline-start: 1.25rem;
+        }
+    }
+
+    .error-area {
+        color: var(--error-area-text);
+        background: var(--error-area-bg);
+        border-color: var(--error-area-text);
+    }
+
+    /* The live region must stay in the accessibility tree (no display:none
+       or hidden), so when it has no errors it just collapses to nothing. */
+    .error-area:not(:has(li)) {
+        padding: 0;
+        border: 0;
+    }
+
+    .error-area:has(li) + .info-area {
+        margin-block-start: 1rem;
+    }
+
+    .info-area {
+        color: var(--info-area-text);
+        background: var(--info-area-bg);
     }
 
     /* Character count area. */
@@ -115,4 +156,12 @@
         background: var(--color-text);
     }
 
+}
+
+.message-area .message-title {
+    margin: 0 0 0.25rem;
+}
+
+.message-area :is(ul, .info) {
+    margin: 0;
 }

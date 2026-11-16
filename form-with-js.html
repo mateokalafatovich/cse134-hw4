@@ -37,16 +37,12 @@
                 <output id="name-hint" class="hint" for="name">
                     Must be between 1 and 100 characters.
                 </output><br>
-                <output id="name-error" class="error" for="name" 
-                    aria-live="polite"></output><br>
             </form-field>
             <form-field>
                 <label for="email">Email (email)</label><br>
                 <input type="email" id="email" name="email" autocomplete="email" 
                     placeholder="johnpork@gmail.com" aria-describedby="email-error"  
                     required><br>
-                <output id="email-error" class="error" for="email" 
-                    aria-live="polite"></output><br>
             </form-field>
             <form-field>
                 <label for="comments">Comments (textarea)</label><br>
@@ -56,13 +52,20 @@
                 <output id="comments-hint" class="hint" for="comments">
                     Must be between 10 and 1000 characters.
                 </output><br>
-                <output id="comments-error" class="error" for="comments" 
-                    aria-live="polite"></output><br>
-                <p id="comments-info" class="info" hidden>
-                    <span id="comments-count"></span>
-                    <span id="comments-status" aria-live="polite"></span>
-                </p>
             </form-field>
+            <div class="message-areas">
+                <section id="error-area" class="message-area error-area" aria-live="polite">
+                    <p id="error-title" class="message-title" hidden>Error messages</p>
+                    <ul id="error-list"></ul>
+                </section>
+                <section id="info-area" class="message-area info-area" hidden>
+                    <p class="message-title">Information</p>
+                    <p id="comments-info" class="info">
+                        <span id="comments-count"></span>
+                        <span id="comments-status" aria-live="polite"></span>
+                    </p>
+                </section>
+            </div>
             <form-field>
                 <input type="hidden" name="possible_bot" value="true">
             </form-field>
