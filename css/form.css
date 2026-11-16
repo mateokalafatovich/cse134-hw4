@@ -1,11 +1,23 @@
 @import "styles.css";
 
+    @layer base, form;
+
+    @layer base {
+        :root {
+            --error: #ff6f01;
+        }
+    
+        h2 {
+            text-align: center;
+        }
+    }
+
 @layer form {
     form {
         display: grid;
-        max-inline-size: 36rem;
         gap: 1rem;
-        max-width: 450px;
+        box-sizing: border-box;
+        inline-size: min(450px, 100vw - 2 * var(--space-page)); /* width that only depends on the viewport, never on content */
         margin: 2rem auto; /* Centers the form horizontally */
         padding: 2rem;
         background-color: var(--color-accent);
@@ -16,7 +28,6 @@
     form-field {
         display: grid;
         gap: 0.25rem;
-        margin-block-end: 1.25rem;
 
         & br { display: none; }
         & label { font-weight: 600; }
@@ -33,12 +44,20 @@
 
     }
 
+    /* Hidden input does not take up space */
+    form-field:has(input[type="hidden"]) {
+        display: none;
+    }    
+
     form-field:has(:user-invalid) :is(input, textarea) {
         border-color: var(--error);
         box-shadow: 0 0 0 1px var(--error);
     }
 
     textarea {
+        inline-size: 100%;
+        box-sizing: border-box;
+        resize: vertical;
         min-block-size: 3lh;
         max-block-size: 10lh;
         @supports (field-sizing: content) {
