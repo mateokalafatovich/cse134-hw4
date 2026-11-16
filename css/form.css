@@ -4,9 +4,22 @@
 
     @layer base {
         :root {
+            --form-bg: var(--color-accent);
+            --form-field-bg: #ffffff;
+            --form-field-border: #000000;
             --error: #ff6f01;
             --character-warning: rgb(154, 96, 29);
             --character-limit: rgb(164, 20, 20);
+        }
+
+
+        :root[data-theme="dark"] {
+            --form-bg: var(--color-article);               
+            --form-field-bg: var(--color-input-bg);         
+            --form-field-border: var(--color-input-border);
+            --error: #ff9a52;
+            --character-warning: #ffc46b;
+            --character-limit: #ff8a8a;
         }
     
         h2 {
@@ -22,7 +35,7 @@
         inline-size: min(450px, 100vw - 2 * var(--space-page)); /* width that only depends on the viewport, never on content */
         margin: 2rem auto; /* Centers the form horizontally */
         padding: 2rem;
-        background-color: var(--color-accent);
+        background-color: var(--form-bg);
         border: 1px solid var(--color-text);
         border-radius: 8px;
     }
@@ -37,9 +50,9 @@
         & :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="image"]), select, textarea) {
             font: inherit;
             color: inherit;
-            background: white;
+            background: var(--form-field-bg);
             padding: 0.4rem 0.6rem;
-            border: 2px solid black;
+            border: 2px solid var(--form-field-border);
             border-radius: 0.375rem;
             max-inline-size: 100%;
         }
@@ -61,9 +74,7 @@
         font-weight: 600;
     }
 
-    /* Character count area. The message text itself changes at each
-       threshold ("Warning:", "Limit reached:"), so color is never the
-       only signal. Both colors pass 4.5:1 on the yellow form background. */
+    /* Character count area. */
     .info {
         margin: 0;
 
@@ -99,8 +110,8 @@
         font: inherit;
         padding: 0.45rem 1rem;
         border-radius: 0.375rem;
-        border: 1px solid black;
-        color: white;
+        border: 1px solid var(--form-field-border);
+        color: var(--form-field-bg);
         background: var(--color-text);
     }
 
