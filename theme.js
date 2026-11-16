@@ -36,7 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.hidden = false;
     btn.addEventListener('click', () => {
         const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        applyTheme(next);
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce').matches;
+        if (!document.startViewTransition || reduceMotion) {
+            applyTheme(next);
+        } else {
+            document.startViewTransition(() => applyTheme(next));
+        }
         saveTheme(next);
     })
 })
