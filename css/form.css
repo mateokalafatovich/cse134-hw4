@@ -5,6 +5,8 @@
     @layer base {
         :root {
             --error: #ff6f01;
+            --character-warning: rgb(154, 96, 29);
+            --character-limit: rgb(164, 20, 20);
         }
     
         h2 {
@@ -52,6 +54,34 @@
     form-field:has(:user-invalid) :is(input, textarea) {
         border-color: var(--error);
         box-shadow: 0 0 0 1px var(--error);
+    }
+
+    .error {
+        color: var(--error);
+        font-weight: 600;
+    }
+
+    /* Character count area. The message text itself changes at each
+       threshold ("Warning:", "Limit reached:"), so color is never the
+       only signal. Both colors pass 4.5:1 on the yellow form background. */
+    .info {
+        margin: 0;
+
+        & span { display: block; }
+
+        &[data-state="warning"] {
+            color: var(--character-warning);
+            font-weight: 600;
+        }
+
+        &[data-state="limit"] {
+            color: var(--character-limit);
+            font-weight: 700;
+        }
+    }
+
+    #comments-info {
+        font-weight: 600;
     }
 
     textarea {
